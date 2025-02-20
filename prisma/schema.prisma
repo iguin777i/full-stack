@@ -1,0 +1,84 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Restaurant {
+  id             String         @id @default(uuid())
+  name           String
+  slug           String
+  description    String
+  avatarImageUrl String
+  coverImageUrl  String
+  MenuCategory   MenuCategory[]
+  products       Product[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  orders         Order[]
+}
+
+model MenuCategory {
+  id           String     @id @default(uuid())
+  name         String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  products     Product[]
+}
+
+model Product {
+  id             String         @id @default(uuid())
+  name           String
+  description    String
+  price          Float
+  ingredients    String[]
+  restaurant     Restaurant     @relation(fields: [restaurantId], references: [id])
+  menuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id])
+  restaurantId   String
+  menuCategoryId String
+  imageUrl       String
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  orderProducts  OrderProduct[]
+}
+
+model Order {
+  id                Int               @id @default(autoincrement())
+  total             Float
+  status            OrderStatus
+  consumptionMethod consumptionMethod
+  restaurant        Restaurant        @relation(fields: [restaurantId], references: [id])
+  restaurantId      String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  orderProducts     OrderProduct[]
+}
+
+model OrderProduct {
+  id        String   @id @default(uuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   Int
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum OrderStatus {
+  PENDENTE
+  EM_PREPARAÇÃO
+  FINALISADO
+}
+
+enum consumptionMethod {
+  LEVAR_PARA_VIAGEM
+  COMER_AQUI
+}
