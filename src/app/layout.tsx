@@ -1,6 +1,9 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
+
+import { CardProvider } from "./[slug]/menu/context/cart";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -8,8 +11,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Méqui",
-  description: "Bora finalizar esse troço bb",
+  title: "FSW Donalds",
+  description: "Bora finalizar esse projeto lindo!",
 };
 
 export default function RootLayout({
@@ -19,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>{children}</body>
+      <body className={`${poppins.className} antialiased`}>
+        <CardProvider>{children}</CardProvider>
+      </body>
     </html>
   );
 }
