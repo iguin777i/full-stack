@@ -23,15 +23,14 @@ const RestaurantMenuPage = async ({
   if (!isComsumptionMethodValid(consumptionMethod)) {
     return notFound();
   }
-  const restaurant = await db.restaurant.findUnique({ 
-    where: { slug }, 
-    include: { 
+  const restaurant = await db.restaurant.findUnique({
+    where: { slug },
+    include: {
       MenuCategory: {
-        include: { products: true }
-      }
-    } 
+        include: { products: true },
+      },
+    },
   });
-
 
   if (!restaurant) {
     return notFound();
@@ -39,8 +38,8 @@ const RestaurantMenuPage = async ({
 
   return (
     <div>
-      <RestaurantHeader restaurant={restaurant}/>
-      <RestaurantCategory restaurant = {restaurant}/>
+      <RestaurantHeader restaurant={restaurant} />
+      <RestaurantCategory restaurant={restaurant} />
     </div>
   );
 };
