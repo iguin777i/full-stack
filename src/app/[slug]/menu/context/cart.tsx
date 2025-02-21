@@ -21,21 +21,42 @@ export const CardContext = createContext<ICardContext>({
   addProduct: () => {},
 });
 
-export const CardProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<CardProduct[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleCart = () => {
-    setIsOpen((prev) => !prev);
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+    const [products, setProducts] = useState<CardProduct[]>([]);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+  
+    const toggleCart = () => {
+      setIsOpen((prev) => !prev);
+    };
+    const addProduct = (product: CardProduct) => {
+      const productIsAlreadyOnTheCart = products.some(
+        (prevProduct) => prevProduct.id === product.id,
+      );
+      if (!productIsAlreadyOnTheCart) {
+        return setProducts((prev) => [...prev, product]);
+      }
+      setProducts((prevProducts) => {
+        return prevProducts.map((prevProduct) => {
+          if (prevProduct.id === product.id) {
+            return {
+              ...prevProduct,
+              quantity: prevProduct.quantity + product.quantity,
+            };
+          }
+          return prevProduct;
+        });
+      });
+    };
+    return (
+      <CardContext.Provider
+        value={{
+          isOpen,
+          products,
+          toggleCart,
+          addProduct,
+        }}
+      >
+        {children}
+      </CardContext.Provider>
+    );
   };
-
-  const addProduct = (product: CardProduct) => {
-    setProducts((prev) => [...prev, product]); 
-  };
-
-  return (
-    <CardContext.Provider value={{ isOpen, products, toggleCart, addProduct }}>
-      {children}
-    </CardContext.Provider>
-  );
-};
