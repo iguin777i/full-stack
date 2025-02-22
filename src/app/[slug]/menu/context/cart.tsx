@@ -15,7 +15,8 @@ export interface ICardContext {
   addProduct: (product: CardProduct) => void;
   decreaseProductQuantity: (productId: string) => void;
   increaseProductQuantity: (producId: string) => void;
-  removeProduct: (productId: string) => void
+  removeProduct: (productId: string) => void;
+  total: number
   
 }
 
@@ -27,6 +28,7 @@ export const CardContext = createContext<ICardContext>({
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
   removeProduct: () => {},
+  total: 0,
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -71,24 +73,24 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const increaseProductQuantity = (productsId: string) => {
+  const increaseProductQuantity = (productId: string) => {
     setProducts((prevProducts) => {
-      return prevProducts.map((prevProducts) => {
-        if (prevProducts.id != productsId) {
-          return prevProducts;
+      return prevProducts.map((prevProduct) => {
+        if (prevProduct.id !== productId) {
+          return prevProduct;
         }
-
-        if (prevProducts.quantity === 1) {
-          return prevProducts;
-        }
-        return { ...prevProducts, quantity: prevProducts.quantity + 1 };
+        return { ...prevProduct, quantity: prevProduct.quantity + 1 };
       });
     });
-  }
+  };
 
   const removeProduct = (productsId: string) => {
     setProducts(prevProducts=> prevProducts.filter(prevProducts=> prevProducts.id != productsId))
   }
+
+  const total = products.reduce((acc, products)=> {
+    return acc + products.price * products.quantity;
+  }, 0)
   return (
     <CardContext.Provider
       value={{
@@ -99,6 +101,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         decreaseProductQuantity,
         increaseProductQuantity,
         removeProduct,
+        total,
       }}
     >
       {children}
