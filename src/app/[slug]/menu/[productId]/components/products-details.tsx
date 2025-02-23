@@ -8,8 +8,15 @@ import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import { CardContext } from "../../context/cart";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import CartSheet from "./cart-sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import CartSheet from "../../components/cart-sheet";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -47,7 +54,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       price: product.price,
       imageUrl: product.imageUrl,
       quantity,
-    }); 
+    });
     toggleCart();
   };
 
