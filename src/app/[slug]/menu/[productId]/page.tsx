@@ -1,4 +1,3 @@
-
 import { notFound } from "next/navigation";
 
 import { db } from "@/lib/prisma";
@@ -7,12 +6,12 @@ import ProductDetails from "./components/products-details";
 import ProductHeader from "./components/products-header";
 
 interface ProductPageProps {
-  params: { slug: string; productId: string };
+  params: Promise<{ slug: string; productId: string }>;
 }
 
 const ProductPage = async ({ params }: ProductPageProps) => {
-  // Não é necessário usar 'await' em params porque já é um objeto direto
-  const { slug, productId } = params;
+  // Como 'params' agora é uma Promise, precisamos esperar por ela
+  const { slug, productId } = await params;
 
   // Buscar o produto no banco de dados
   const product = await db.product.findUnique({
