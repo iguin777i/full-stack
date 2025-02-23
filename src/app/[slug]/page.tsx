@@ -1,6 +1,7 @@
+import { consumptionMethod } from "@prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { consumptionMethod } from "@prisma/client";
+
 import { db } from "@/lib/prisma";
 
 import ConsumptionMethodOption from "./components/consumption-method-option";

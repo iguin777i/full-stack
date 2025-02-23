@@ -1,9 +1,11 @@
 "use server";
 
-import { db } from "@/lib/prisma";
 import { consumptionMethod } from "@prisma/client";
-import { removeCpfPunctuation } from "../helpers/cpf";
 import { redirect } from "next/navigation";
+
+import { db } from "@/lib/prisma";
+
+import { removeCpfPunctuation } from "../helpers/cpf";
 
 interface CreateOrderInput {
   customerName: string;
@@ -71,6 +73,7 @@ export const createOrder = async (input: CreateOrderInput) => {
     0
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const order = await db.order.create({
     data: {
       status: "PENDENTE",

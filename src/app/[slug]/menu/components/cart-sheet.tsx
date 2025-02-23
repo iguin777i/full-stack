@@ -1,17 +1,17 @@
+import { useContext, useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { useContext, useState } from "react";
+import { formatCurrency } from "@/helpers/format-currency";
+
 import { CardContext } from "../context/cart";
 import CartProductItem from "./cart-product-item";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { formatCurrency } from "@/helpers/format-currency";
-import FinishOrderButton from "./finish-order-dialog";
 import FinishOrderDialog from "./finish-order-dialog";
 
 const CartSheet = () => {

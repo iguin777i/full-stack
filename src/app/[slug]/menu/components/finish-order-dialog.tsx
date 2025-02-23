@@ -1,6 +1,15 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { consumptionMethod } from "@prisma/client";
+import { Loader2Icon } from "lucide-react";
+import { useParams, useSearchParams } from "next/navigation";
+import { useContext, useTransition } from "react";
+import { useForm } from "react-hook-form";
 import { PatternFormat } from "react-number-format";
+import { toast } from "sonner";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -12,11 +21,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
-import { z } from "zod";
-import { isValidCpf } from "../helpers/cpf";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -26,13 +30,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+
 import { createOrder } from "../actions/create-order";
-import { useParams, useSearchParams } from "next/navigation";
-import { consumptionMethod } from "@prisma/client";
-import { useContext, useTransition } from "react";
 import { CardContext } from "../context/cart";
-import { toast } from "sonner";
-import { Loader2Icon } from "lucide-react";
+import { isValidCpf } from "../helpers/cpf";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, {
@@ -86,6 +87,7 @@ const FinishOrderDialog = ({ open, onOpenChange }: FinishOrderDialogProps) => {
         onOpenChange(false);
         toast.success("Pedido finalizado com sucesso!");
       });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       console.error();
     }

@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { db } from "@/lib/prisma";
-import { ChevronLeftIcon, ScrollTextIcon } from "lucide-react";
-import Image from "next/image";
+
 import { notFound } from "next/navigation";
-import ProductHeader from "./components/products-header";
+
+import { db } from "@/lib/prisma";
+
 import ProductDetails from "./components/products-details";
+import ProductHeader from "./components/products-header";
 
 interface ProductPageProps {
   params: { slug: string; productId: string };

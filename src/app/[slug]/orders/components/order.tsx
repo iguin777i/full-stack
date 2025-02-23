@@ -7,9 +7,8 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
-import { formatCurrency } from "@/helpers/format-currency";
 import { Separator } from "@/components/ui/separator";
+import { formatCurrency } from "@/helpers/format-currency";
 
 interface OrderListProps {
   orders: Array<

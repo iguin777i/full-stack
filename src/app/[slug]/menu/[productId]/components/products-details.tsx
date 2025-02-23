@@ -1,22 +1,16 @@
 "use client"; // <-- Adicione esta linha no topo do arquivo
 
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { formatCurrency } from "@/helpers/format-currency";
 import { Prisma } from "@prisma/client";
 import { ChefHatIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
-import { CardContext } from "../../context/cart";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { formatCurrency } from "@/helpers/format-currency";
+
 import CartSheet from "../../components/cart-sheet";
+import { CardContext } from "../../context/cart";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
