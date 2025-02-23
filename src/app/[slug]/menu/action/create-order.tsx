@@ -3,6 +3,7 @@
 import { db } from "@/lib/prisma";
 import { consumptionMethod } from "@prisma/client";
 import { removeCpfPunctuation } from "../helpers/cpf";
+import { redirect } from "next/navigation";
 
 interface CreateOrderInput {
   customerName: string;
@@ -84,8 +85,9 @@ export const createOrder = async (input: CreateOrderInput) => {
       consumptionMethod: input.consumptionMethod, // 🔹 Garantindo que não seja null
       restaurantId: restaurant.id, // 🔹 Somente `restaurantId`, sem `restaurant`
     },
-  });
+  });  
 
-  console.log("✅ Pedido criado com sucesso! ID do pedido:", order.id);
-  return order;
+  redirect(`/${input.slug}/orders`);
+
+
 };
