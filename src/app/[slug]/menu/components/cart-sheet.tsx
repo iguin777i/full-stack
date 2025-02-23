@@ -19,7 +19,7 @@ const CartSheet = () => {
   const { isOpen, toggleCart, products, total } = useContext(CardContext);
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
-      <SheetTrigger>Open</SheetTrigger>
+
       <SheetContent className="w-[85%]">
         <SheetHeader>
           <SheetTitle className="text-left">Carrinho</SheetTitle>
