@@ -26,7 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createOrder } from "../action/create-order";
+import { createOrder } from "../actions/create-order";
 import { useParams, useSearchParams } from "next/navigation";
 import { consumptionMethod } from "@prisma/client";
 import { useContext, useTransition } from "react";
