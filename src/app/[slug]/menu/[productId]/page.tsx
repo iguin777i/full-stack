@@ -11,26 +11,38 @@ interface ProductPageProps {
 }
 
 const ProductPage = async ({ params }: ProductPageProps) => {
-  const { slug, productId } = await params;
+  // Não é necessário usar 'await' em params porque já é um objeto direto
+  const { slug, productId } = params;
+
+  // Buscar o produto no banco de dados
   const product = await db.product.findUnique({
     where: { id: productId },
-    include: { restaurant: {select:{
-        name: true,
-        avatarImageUrl: true,
-        slug: true,
-    }}},
+    include: {
+      restaurant: {
+        select: {
+          name: true,
+          avatarImageUrl: true,
+          slug: true,
+        },
+      },
+    },
   });
 
+  // Se o produto não for encontrado, retorna erro 404
   if (!product) {
     return notFound();
   }
+
+  // Verifica se o slug do restaurante corresponde ao slug da URL
   if (product.restaurant.slug.toUpperCase() !== slug.toUpperCase()) {
     return notFound();
   }
+
+  // Renderiza os componentes de cabeçalho e detalhes do produto
   return (
     <div className="flex h-full flex-col">
-    <ProductHeader product={product}/>
-    <ProductDetails product={product} />
+      <ProductHeader product={product} />
+      <ProductDetails product={product} />
     </div>
   );
 };
