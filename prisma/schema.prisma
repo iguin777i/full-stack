@@ -76,7 +76,7 @@ model OrderProduct {
 enum OrderStatus {
   PENDENTE
   EM_PREPARAÇÃO
-  FINALISADO
+  FINALIZADO
 }
 
 enum consumptionMethod {
